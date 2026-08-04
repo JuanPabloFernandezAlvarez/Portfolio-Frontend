@@ -8,22 +8,21 @@ import { useContext } from "react";
 import { AuthContext } from "../../services/authContext/Auth.Context";
 import ToggleTheme from "../toggleTheme/ToggleTheme";
 import "./Header.css";
-const Header = ({onLogout}) => {
+const Header = () => {
   const navigate = useNavigate();
-  const { handleUserLogout } = useContext(AuthContext);
+  const { token, handleUserLogout } = useContext(AuthContext);
+  const isLoggedIn = Boolean(token);
 
   const handleNavigateHome = () => {
     navigate("/home", { replace: true });
   };
-
-  const handleSignIn = () => {
+    const handleLogin = () => {
     navigate("/login");
-  };
-  const handleSignOut = () => {
+    };
+  const handleLogout = () => {
     handleUserLogout();
-    onLogout();
-    toast.success("Cierre de sesiòn exitoso", {
-    onClose: () => navigate("/home", { replace: true }),
+    toast.success("Cierre de sesion exitoso", {
+      onClose: () => navigate("/home", { replace: true }),
     });
   };
 
@@ -38,8 +37,8 @@ const Header = ({onLogout}) => {
           <Nav.Link href="#profile">Perfil</Nav.Link>
           <Nav.Link href="#experiencias">Experiencias</Nav.Link>
           <Nav.Link href="#skills">Skills</Nav.Link>
-          <Button className="header-btn" onClick={handleSignIn}>
-            Iniciar Sesión
+          <Button className="header-btn" onClick={isLoggedIn ? handleLogout : handleLogin}>
+            {isLoggedIn ? "Cerrar sesión" : "Iniciar sesión"}
           </Button>
         </Nav>
       </Container>

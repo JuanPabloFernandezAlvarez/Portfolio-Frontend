@@ -23,6 +23,12 @@ body {
   margin: 0;
 }
 
+/* Durante la animación de salida el toast ya no debe bloquear controles
+   ubicados detrás de él. */
+.Toastify__toast[class*="-exit"] {
+  pointer-events: none;
+}
+
 html, body {
   background: var(--my-bg) !important;
   color: var(--my-text) !important;

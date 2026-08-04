@@ -1,8 +1,7 @@
 import { useRef, useState, useContext } from "react";
 import { Button, Form, FormGroup } from "react-bootstrap";
 import { useNavigate } from "react-router";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { Eye, EyeSlash } from "react-bootstrap-icons";
 import "./Login.css";
 import { AuthContext } from "../../../services/authContext/Auth.Context";
@@ -143,17 +142,6 @@ const Login = ({ onLogin }) => {
           </div>
         </div>
       </div>
-      <ToastContainer 
-        position="top-right" 
-        autoClose={3000} 
-        hideProgressBar={false} 
-        newestOnTop={true} 
-        closeOnClick 
-        rtl={false} 
-        pauseOnFocusLoss 
-        draggable 
-        pauseOnHover 
-      />
     </div>
   );
 };

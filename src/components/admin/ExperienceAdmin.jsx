@@ -31,6 +31,7 @@ const ExperienceAdmin = () => {
   const [form, setForm] = useState(emptyForm);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const selectedExperience = useMemo(
     () => experiences.find((experience) => String(experience.id) === String(selectedId)),
@@ -40,12 +41,13 @@ const ExperienceAdmin = () => {
   const loadExperiences = useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await authFetch("/Experiences");
+      const response = await authFetch("/Experience");
       if (!response.ok) {
         throw new Error(await getErrorMessage(response, "No se pudieron cargar las experiencias"));
       }
 
       const data = await response.json();
+      console.log("Respuesta completa de la API:", data);
       const allExperiences = Array.isArray(data) ? data : data.items || data.$values || [];
       const normalizedQuery = query.trim().toLowerCase();
       setExperiences(
@@ -77,28 +79,23 @@ const ExperienceAdmin = () => {
     event.preventDefault();
     setIsSaving(true);
 
+    const isUpdateMode = isEditing && Boolean(selectedExperience);
+
     try {
-      const response = await authFetch(
-        selectedExperience ? `/Experiences/${selectedExperience.id}` : "/Experiences",
-        {
-          method: selectedExperience ? "PUT" : "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
-        }
-      );
+      const response = await authFetch(isUpdateMode ? `/Experience/${selectedExperience.id}` : "/Experience", {
+        method: isUpdateMode ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
       if (!response.ok) {
         throw new Error(
-          await getErrorMessage(
-            response,
-            selectedExperience ? "No se pudo actualizar la experiencia" : "No se pudo crear la experiencia"
-          )
+          await getErrorMessage(response, isUpdateMode ? "No se pudo actualizar la experiencia" : "No se pudo crear la experiencia")
         );
       }
 
-      toast.success(selectedExperience ? "Experiencia actualizada" : "Experiencia creada");
-      setSelectedId(null);
-      setForm(emptyForm);
+      toast.success(isUpdateMode ? "Experiencia actualizada" : "Experiencia creada");
+      resetForm();
       await loadExperiences();
     } catch (error) {
       toast.error(error.message || "Error de conexión al guardar la experiencia");
@@ -109,6 +106,7 @@ const ExperienceAdmin = () => {
 
   const handleEdit = (experience) => {
     setSelectedId(experience.id);
+    setIsEditing(true);
     setForm({
       title: experience.title ?? "",
       description: experience.description ?? "",
@@ -117,17 +115,33 @@ const ExperienceAdmin = () => {
     });
   };
 
+  const resetForm = () => {
+    setSelectedId(null);
+    setIsEditing(false);
+    setForm({ ...emptyForm });
+  };
+
+  const getExperienceKey = (experience, index) => {
+    const candidateId = experience?.id;
+    if (candidateId === null || candidateId === undefined || candidateId === "") {
+      return `experience-${index}`;
+    }
+
+    return String(candidateId);
+  };
+
   const handleDelete = async (id) => {
     try {
-      const response = await authFetch(`/Experiences/${id}`, { method: "DELETE" });
+      console.log("ID a eliminar:", id);
+      const response = await authFetch(`/Experience/${id}`, { method: "DELETE" });
+
       if (!response.ok) {
         throw new Error(await getErrorMessage(response, "No se pudo eliminar la experiencia"));
       }
 
       toast.success("Experiencia eliminada");
       if (String(selectedId) === String(id)) {
-        setSelectedId(null);
-        setForm(emptyForm);
+        resetForm();
       }
       await loadExperiences();
     } catch (error) {
@@ -151,16 +165,19 @@ const ExperienceAdmin = () => {
               value={query}
               onChange={(event) => setQuery(event.target.value)}
             />
+            <Button type="button" size="sm" variant="outline-secondary" onClick={resetForm}>
+              Nueva experiencia
+            </Button>
           </div>
 
           <div className="admin-list">
             {isLoading ? (
               <p>Cargando experiencias...</p>
             ) : (
-              experiences.map((experience) => (
+              experiences.map((experience, index) => (
                 <ExperienceCard
                   experience={experience}
-                  key={experience.id}
+                  key={getExperienceKey(experience, index)}
                   actions={
                     <div className="admin-actions">
                       <Button aria-label="Editar experiencia" size="sm" variant="outline-primary" onClick={() => handleEdit(experience)}>
@@ -180,7 +197,7 @@ const ExperienceAdmin = () => {
         <Form className="admin-form" onSubmit={handleSubmit}>
           <div className="admin-form__header">
             <PlusCircle />
-            <h3>{selectedExperience ? "Actualizar experiencia" : "Nueva experiencia"}</h3>
+            <h3>{isEditing && selectedExperience ? "Actualizar experiencia" : "Nueva experiencia"}</h3>
           </div>
 
           <Form.Control required name="title" placeholder="Titulo" value={form.title} onChange={handleChange} />
@@ -190,10 +207,10 @@ const ExperienceAdmin = () => {
 
           <div className="form-actions">
             <Button type="submit" disabled={isSaving}>
-              {isSaving ? "Guardando..." : selectedExperience ? "Guardar cambios" : "Crear"}
+              {isSaving ? "Guardando..." : isEditing && selectedExperience ? "Guardar cambios" : "Crear"}
             </Button>
-            <Button type="button" variant="outline-secondary" disabled={isSaving} onClick={() => { setSelectedId(null); setForm(emptyForm); }}>
-              Limpiar
+            <Button type="button" variant="outline-secondary" disabled={isSaving} onClick={resetForm}>
+              {isEditing && selectedExperience ? "Cancelar edición" : "Limpiar"}
             </Button>
           </div>
         </Form>

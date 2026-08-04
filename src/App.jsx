@@ -10,6 +10,7 @@ import Login from "./components/auth/login/Login";
 import NotFound from "./components/routes/notFound/NotFound";
 import Protected from "./components/routes/protected/Protected";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 
@@ -47,7 +48,7 @@ function App() {
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <ToastContainer />
+      <ToastContainer position="top-right" autoClose={3000} newestOnTop />
     </BrowserRouter>
   );
 }
