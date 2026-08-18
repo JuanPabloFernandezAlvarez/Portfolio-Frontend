@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Form, Spinner } from "react-bootstrap";
-import { portfolioApi } from "../../services/portfolioApi";
-import ExperienceCard from "./ExperienceCard";
+import { authFetch } from "../../services/authFetch";
+import AccordionGallery from "./AccordionGallery";
 
 const PublicExperiences = () => {
   const [query, setQuery] = useState("");
@@ -9,18 +9,42 @@ const PublicExperiences = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
-    portfolioApi
-      .searchExperiences({ query, onlyPublic: true })
-      .then(setExperiences)
-      .finally(() => setIsLoading(false));
+    const loadExperiences = async () => {
+      setIsLoading(true);
+
+      try {
+        const response = await authFetch("/Experience");
+        if (!response.ok) throw new Error("No se pudieron cargar las experiencias");
+
+        const data = await response.json();
+        const allExperiences = Array.isArray(data) ? data : data.items || data.$values || [];
+        const normalizedQuery = query.trim().toLowerCase();
+
+        setExperiences(
+          allExperiences.filter(
+            (experience) =>
+              !normalizedQuery ||
+              [experience.title, experience.description, experience.summary]
+                .join(" ")
+                .toLowerCase()
+                .includes(normalizedQuery)
+          )
+        );
+      } catch (error) {
+        console.error(error);
+        setExperiences([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadExperiences();
   }, [query]);
 
   return (
     <section id="experiencias" className="section-band">
       <div className="app-container">
         <div className="section-heading">
-          <p>Perfil publico</p>
           <h2>Experiencias</h2>
         </div>
 
@@ -35,12 +59,10 @@ const PublicExperiences = () => {
           <div className="loading-state">
             <Spinner animation="border" />
           </div>
+        ) : experiences.length ? (
+          <AccordionGallery items={experiences} />
         ) : (
-          <div className="experience-grid">
-            {experiences.map((experience) => (
-              <ExperienceCard experience={experience} key={experience.id} />
-            ))}
-          </div>
+          <p>No hay experiencias para mostrar.</p>
         )}
       </div>
     </section>

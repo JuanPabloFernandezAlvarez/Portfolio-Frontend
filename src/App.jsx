@@ -10,6 +10,7 @@ import Login from "./components/auth/login/Login";
 import NotFound from "./components/routes/notFound/NotFound";
 import Protected from "./components/routes/protected/Protected";
 import { ToastContainer } from "react-toastify";
+import Antigravity from "./components/background/Antigravity";
 import "react-toastify/dist/ReactToastify.css";
 
 
@@ -29,25 +30,44 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Navigate to="/home" replace />} />
-        <Route
-          path="/home"
-          element={
-            <main>
-              <Dashboard profile={profile} />
-              <PublicExperiences />
-              <ListSkills />
-            </main>
-          }
-        />
-        <Route path="/login" element={<Login onLogin={handleSignIn} />} />
-        <Route element={<Protected isSignedIn={isSignedIn} />}>
-          <Route path="/admin" element={<ExperienceAdmin />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <Antigravity
+        count={300}
+        magnetRadius={10}
+        ringRadius={10}
+        waveSpeed={0.4}
+        waveAmplitude={1}
+        particleSize={2}
+        lerpSpeed={0.1}
+        color="#FF9FFC"
+        autoAnimate={false}
+        particleVariance={1}
+        rotationSpeed={0}
+        depthFactor={1}
+        pulseSpeed={3}
+        particleShape="capsule"
+        fieldStrength={10}
+      />
+      <div className="app-content">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Navigate to="/home" replace />} />
+          <Route
+            path="/home"
+            element={
+              <main>
+                <Dashboard profile={profile} />
+                <PublicExperiences />
+                <ListSkills />
+              </main>
+            }
+          />
+          <Route path="/login" element={<Login onLogin={handleSignIn} />} />
+          <Route element={<Protected isSignedIn={isSignedIn} />}>
+            <Route path="/admin" element={<ExperienceAdmin />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
       <ToastContainer position="top-right" autoClose={3000} newestOnTop />
     </BrowserRouter>
   );

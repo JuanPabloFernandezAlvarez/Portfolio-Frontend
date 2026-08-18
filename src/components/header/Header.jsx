@@ -27,20 +27,23 @@ const Header = () => {
   };
 
   return (
-    <Navbar fixed="top" bg="dark" data-bs-theme="dark" className="p-2 fs-6">
-      <Container>
+    <Navbar expand="lg" data-bs-theme="dark" className="navbar-modern">
+      <Container className="navbar-content">
         <Navbar.Brand onClick={handleNavigateHome} style={{ cursor: "pointer" }}>
           Juan Pablo Fernandez
         </Navbar.Brand>
-        <Nav className="align-items-center gap-3">
-          <ToggleTheme />
-          <Nav.Link href="#profile">Perfil</Nav.Link>
-          <Nav.Link href="#experiencias">Experiencias</Nav.Link>
-          <Nav.Link href="#skills">Skills</Nav.Link>
-          <Button className="header-btn" onClick={isLoggedIn ? handleLogout : handleLogin}>
-            {isLoggedIn ? "Cerrar sesión" : "Iniciar sesión"}
-          </Button>
-        </Nav>
+        <Navbar.Toggle aria-controls="main-navigation" />
+        <Navbar.Collapse id="main-navigation">
+          <Nav className="header-nav ms-lg-auto align-items-lg-center gap-lg-3">
+            <ToggleTheme />
+            <Nav.Link href="/home#profile">Perfil</Nav.Link>
+            <Nav.Link href="/home#experiencias">Experiencias</Nav.Link>
+            <Nav.Link href="/home#skills">Skills</Nav.Link>
+            <Button className="header-btn" onClick={isLoggedIn ? handleLogout : handleLogin}>
+              {isLoggedIn ? "Cerrar sesión" : "Iniciar sesión"}
+            </Button>
+          </Nav>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );

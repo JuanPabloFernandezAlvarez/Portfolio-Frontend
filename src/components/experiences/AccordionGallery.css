@@ -1,0 +1,124 @@
+.accordion-gallery {
+  display: flex;
+  gap: 10px;
+  min-height: 460px;
+  width: 100%;
+}
+
+.ag-panel {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 16px;
+  background: var(--my-bg);
+  cursor: pointer;
+  outline: none;
+  transition: flex-grow 0.55s ease, transform 0.55s ease;
+}
+
+.ag-panel:not(.ag-panel--active) {
+  filter: grayscale(1);
+  transform: perspective(900px) rotateY(7deg);
+}
+
+.ag-panel--active {
+  flex-grow: 5;
+}
+
+.ag-panel:focus-visible {
+  box-shadow: 0 0 0 3px var(--my-primary);
+}
+
+.ag-panel__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.55s ease;
+}
+
+.ag-panel--active .ag-panel__image {
+  transform: scale(1.05);
+}
+
+.ag-panel__image--placeholder {
+  background: linear-gradient(135deg, var(--my-primary), var(--my-secondary-bg));
+}
+
+.ag-panel__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.05) 70%);
+}
+
+.ag-panel__content {
+  position: absolute;
+  right: 22px;
+  bottom: 22px;
+  left: 22px;
+  display: flex;
+  align-items: start;
+  gap: 12px;
+  color: #fff;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.ag-panel--active .ag-panel__content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ag-panel__bar {
+  width: 3px;
+  min-height: 54px;
+  border-radius: 3px;
+  background: var(--my-primary);
+}
+
+.ag-panel__content h3,
+.ag-panel__content p {
+  margin: 0;
+}
+
+.ag-panel__content h3 {
+  font-size: clamp(1.2rem, 2vw, 1.7rem);
+}
+
+.ag-panel__content p {
+  margin-top: 4px;
+}
+
+.ag-panel__summary {
+  max-width: 620px;
+  line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+  .accordion-gallery {
+    flex-direction: column;
+    min-height: 560px;
+  }
+
+  .ag-panel {
+    min-height: 84px;
+  }
+
+  .ag-panel--active {
+    flex-grow: 4;
+  }
+
+  .ag-panel:not(.ag-panel--active) {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ag-panel,
+  .ag-panel__image,
+  .ag-panel__content {
+    transition: none;
+  }
+}

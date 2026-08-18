@@ -3,7 +3,7 @@ import { Button, Container } from "react-bootstrap";
 
 const fallbackProfile = {
   fullName: "Juan Pablo Fernandez Alvarez",
-  headline: "Desarrollador web en formacion",
+  headline: "Desarrollador web Full Stack",
   email: "juanpablofernandezalvarez123@gmail.com",
   avatarUrl: "/assets/img/FotoPortfolio.png",
   cvUrl: "#",

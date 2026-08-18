@@ -1,4 +1,4 @@
-import { experienceSeed, portfolioUser } from "../data/portfolio.seed";
+import {portfolioUser } from "../data/portfolio.seed";
 
 const STORAGE_KEY = "Portfolio-2026-Experiences";
 
@@ -15,10 +15,7 @@ const wait = (value) => new Promise((resolve) => window.setTimeout(() => resolve
 const readStoredExperiences = () => {
   const rawExperiences = localStorage.getItem(STORAGE_KEY);
 
-  if (!rawExperiences) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(experienceSeed));
-    return experienceSeed;
-  }
+
 
   const experiences = JSON.parse(rawExperiences).map(normalizeExperience);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(experiences));

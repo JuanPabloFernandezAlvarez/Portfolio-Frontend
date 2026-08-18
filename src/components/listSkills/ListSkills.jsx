@@ -41,7 +41,6 @@ const ListSkills = () => {
         className="skills-section"
       >
         <div className="section-heading text-center">
-          <p>Stack</p>
           <h2>Skills</h2>
         </div>
         <div className="container-md categories-grid">

@@ -18,7 +18,11 @@ const getErrorMessage = async (response, fallback) => {
 
   try {
     const data = JSON.parse(text);
-    return data.message || data.title || data.error || fallback;
+    const validationErrors = Object.values(data.errors ?? {})
+      .flat()
+      .filter(Boolean);
+
+    return validationErrors[0] || data.message || data.error || data.detail || data.title || fallback;
   } catch {
     return text;
   }
@@ -154,7 +158,6 @@ const ExperienceAdmin = () => {
       <div className="app-container admin-layout">
         <div>
           <div className="section-heading">
-            <p>Superadmin</p>
             <h2>Gestion de experiencias</h2>
           </div>
 
