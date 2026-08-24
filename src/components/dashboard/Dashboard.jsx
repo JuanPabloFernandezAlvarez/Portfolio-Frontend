@@ -6,7 +6,7 @@ const fallbackProfile = {
   headline: "Desarrollador web Full Stack",
   email: "juanpablofernandezalvarez123@gmail.com",
   avatarUrl: "/assets/img/FotoPortfolio.png",
-  cvUrl: "#",
+  cvUrl: "/assets/CV_Juan_Pablo_Fernandez_Alvarez(con foto).pdf",
   socialLinks: {},
 };
 
@@ -27,7 +27,12 @@ const Dashboard = ({ profile = fallbackProfile }) => {
             src={publicProfile.avatarUrl}
             alt={publicProfile.fullName}
           />
-          <Button href={publicProfile.cvUrl} className="rounded-5" variant="outline-primary">
+          <Button
+            href={publicProfile.cvUrl}
+            download
+            className="rounded-5"
+            variant="outline-primary"
+          >
             Descargar CV
           </Button>
           <div className="d-flex gap-3 fs-3 mt-3">
