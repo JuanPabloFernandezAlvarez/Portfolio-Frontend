@@ -4,7 +4,13 @@ const isLocal =
 
 export const API_BASE_URL =
   import.meta.env.VITE_API_URL ??
-  (isLocal ? "https://localhost:7226/api" : "https://gimapp-api-tup-fgfgd6f3e6c9hehj.brazilsouth-01.azurewebsites.net/api");
+  (isLocal ? "https://localhost:7226/api" : undefined);
+
+if (!API_BASE_URL) {
+  console.error(
+    "VITE_API_URL no está configurada. Definila en las variables de entorno de Vercel."
+  );
+}
 
 export const authFetch = (url, options = {}) => {
   const token = localStorage.getItem("Portfolio-2026-Token");
