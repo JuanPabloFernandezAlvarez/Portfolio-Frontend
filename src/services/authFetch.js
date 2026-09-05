@@ -1,3 +1,5 @@
+console.log("DEBUG import.meta.env:", import.meta.env);
+
 const isLocal =
   window.location.hostname === "localhost" ||
   window.location.hostname === "127.0.0.1";
