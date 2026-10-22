@@ -17,6 +17,9 @@ const skillsByCategory = {
     { name: "Express.JS", image: "express/express-original" },
     { name: "MongoDB", image: "mongodb/mongodb-original" },
     { name: "C", image: "c/c-original" },
+    { name: ".NET", image: "dotnetcore/dotnetcore-original" },
+    { name: "C#", image: "csharp/csharp-original" },
+    { name: "Azure", image: "azure/azure-original" },
   ],
   Aprendiendo: [
     { name: "Tailwindcss", image: "tailwindcss/tailwindcss-original" },
