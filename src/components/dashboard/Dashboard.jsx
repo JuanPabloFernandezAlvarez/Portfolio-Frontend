@@ -72,7 +72,7 @@ const Dashboard = ({ profile = fallbackProfile }) => {
         </div>
       </div>
       <div className="Arrow fs-3">
-        <button onClick={handleScroll} className="scroll-button">
+        <button id="scroll-button" onClick={handleScroll} className="scroll-button">
           <ArrowDownCircle />
         </button>
       </div>
