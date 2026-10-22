@@ -4,7 +4,7 @@ export const portfolioUser = {
   headline: "Desarrollador web Full Stack",
   email: "juanpablofernandezalvarez123@gmail.com",
   location: "Argentina",
-  avatarUrl: "/assets/img/FotoPortfolio.png",
+  avatarUrl: "/assets/img/FotoPortfolio.webp",
   cvUrl: "/assets/CV_Juan_Pablo_Fernandez_Alvarez(con foto).pdf",
   socialLinks: {
     linkedin: "https://www.linkedin.com/in/juan-pablo-fernandez-alvarez-383a09298",
