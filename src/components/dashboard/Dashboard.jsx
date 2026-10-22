@@ -64,7 +64,6 @@ const Dashboard = ({ profile = fallbackProfile }) => {
             </div>
           </div>
         </Container>
-
         <div className="profile-copy">
           <p className="eyebrow">{publicProfile.headline}</p>
           <h1>{publicProfile.fullName}</h1>
@@ -72,8 +71,14 @@ const Dashboard = ({ profile = fallbackProfile }) => {
         </div>
       </div>
       <div className="Arrow fs-3">
-        <button id="scroll-button" onClick={handleScroll} className="scroll-button">
-          <ArrowDownCircle />
+        <button
+          id="scroll-button"
+          type="button"
+          onClick={handleScroll}
+          className="scroll-button"
+          aria-label="Ir a la siguiente sección"
+        >
+          <ArrowDownCircle aria-hidden="true" focusable="false" />
         </button>
       </div>
     </section>
