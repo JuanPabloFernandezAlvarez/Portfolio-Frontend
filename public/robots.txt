@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://portfolio-frontend-red-nine.vercel.app/sitemap.xml
