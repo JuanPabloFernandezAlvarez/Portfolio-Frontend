@@ -5,7 +5,7 @@ const fallbackProfile = {
   fullName: "Juan Pablo Fernandez Alvarez",
   headline: "Desarrollador web Full Stack",
   email: "juanpablofernandezalvarez123@gmail.com",
-  avatarUrl: "/assets/img/FotoPortfolio.png",
+  avatarUrl: "/assets/img/FotoPortfolio.webp",
   cvUrl: "/assets/CV_Juan_Pablo_Fernandez_Alvarez(con foto).pdf",
   socialLinks: {},
 };

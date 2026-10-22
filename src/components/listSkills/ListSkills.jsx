@@ -3,33 +3,33 @@ import "../../assets/App.css";
 
 const skillsByCategory = {
   Frontend: [
-    { name: "HTML", image: "/assets/skills/html.png" },
-    { name: "CSS", image: "/assets/skills/css.png" },
-    { name: "JavaScript", image: "/assets/skills/javascript.png" },
-    { name: "ReactJs", image: "/assets/skills/react.png" },
-    { name: "Figma", image: "/assets/skills/Figma.png" },
+    { name: "HTML", image: "html5/html5-original" },
+    { name: "CSS", image: "css3/css3-original" },
+    { name: "JavaScript", image: "javascript/javascript-original" },
+    { name: "ReactJs", image: "react/react-original" },
+    { name: "Figma", image: "figma/figma-original" },
   ],
   Backend: [
-    { name: "MySQL", image: "/assets/skills/sql.png" },
-    { name: "Python", image: "/assets/skills/python.png" },
-    { name: "Flask", image: "/assets/skills/flask.png" },
-    { name: "NodeJs", image: "/assets/skills/nodeJs.png" },
-    { name: "Express.JS", image: "/assets/skills/expressJs.png" },
-    { name: "MongoDB", image: "/assets/skills/mongoDb.png" },
-    { name: "C", image: "/assets/skills/c.png" },
+    { name: "MySQL", image: "mysql/mysql-original" },
+    { name: "Python", image: "python/python-original" },
+    { name: "Flask", image: "flask/flask-original" },
+    { name: "NodeJs", image: "nodejs/nodejs-original" },
+    { name: "Express.JS", image: "express/express-original" },
+    { name: "MongoDB", image: "mongodb/mongodb-original" },
+    { name: "C", image: "c/c-original" },
   ],
   Aprendiendo: [
-    { name: "Tailwindcss", image: "/assets/skills/tailwind.png" },
-    { name: "Docker", image: "/assets/skills/docker.png" },
+    { name: "Tailwindcss", image: "tailwindcss/tailwindcss-original" },
+    { name: "Docker", image: "docker/docker-original" },
   ],
   Herramientas: [
-    { name: "Git", image: "/assets/skills/git.png" },
-    { name: "GitHub", image: "/assets/skills/github.png" },
-    { name: "Terminal", image: "/assets/skills/terminal.png" },
-    { name: "VsCode", image: "/assets/skills/vsCode.png" },
-    { name: "Npm", image: "/assets/skills/npm.png" },
-    { name: "PostMan", image: "/assets/skills/postman.png" },
-    { name: "Bootstrap", image: "/assets/skills/bootstrap.png"},
+    { name: "Git", image: "git/git-original" },
+    { name: "GitHub", image: "github/github-original" },
+    { name: "Terminal", image: "bash/bash-original" },
+    { name: "VsCode", image: "vscode/vscode-original" },
+    { name: "Npm", image: "npm/npm-original" },
+    { name: "PostMan", image: "postman/postman-original" },
+    { name: "Bootstrap", image: "bootstrap/bootstrap-original" },
   ],
 };
 
@@ -50,7 +50,7 @@ const ListSkills = () => {
               <div className="skill-list">
                 {skills.map((skill) => (
                   <div className="profile__links" key={skill.name}>
-                    <Skill  name={skill.name} image={skill.image} />
+                    <Skill name={skill.name} image={skill.image} />
                   </div>
                 ))}
               </div>
